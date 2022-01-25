@@ -1,0 +1,75 @@
+<%- include("header") -%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="box" id="heading">
+        <h1>Example</h1>
+      </div>
+
+      <div class="box">
+        <%items.forEach(function(item){%>
+        <form>
+          <div class="item">
+            <input type="checkbox" name="checkbox" />
+            <p><%=item.name%></p>
+          </div>
+        </form>
+        <%})%>
+        <input
+          type="text"
+          name="newItem"
+          placeholder="New Item"
+          autocomplete="off"
+        />
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <div class="col-lg-7 center">
+      <div class="opening-box">
+        <p class="opening-heading">Hi there,</p>
+        <p class="text">
+          You can start creating your own to-do lists by entering the title in
+          the text box below!<br /><br />The navigation of this list is very
+          simple! Please refer to the example.
+        </p>
+      </div>
+
+      <div class="opening-box">
+        <form id="new-list" action="/" method="post">
+          <input
+            type="text"
+            name="newList"
+            placeholder="List Title"
+            autocomplete="off"
+          />
+          <button type="submit">+</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row cards-row">
+    <h2 id="list-section">Your Lists</h2>
+    <%lists.forEach(function(list){%>
+    <div class="col-lg-4 col-sm-6 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <form class="delete-card" action="/deleteCard" method="post">
+            <h5 class="card-title"><%=list.name%></h5>
+            <button type="submit" name="cardId" value="<%=list._id%>" class="icon-button">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+          <p class="card-text"><%=list.items.length%> things left to do!</p>
+          <a href="/lists/<%= list.name %>" class="btn btn-primary"
+            >Check it out</a
+          >
+        </div>
+      </div>
+    </div>
+    <%})%>
+  </div>
+</div>
+
+<%- include("footer") -%>
